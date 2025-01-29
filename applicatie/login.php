@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include 'header.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Voorbeeld inloglogica (vervang met database check)
     $gebruikersnaam = "test";
@@ -14,6 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $foutmelding = "Ongeldige inloggegevens!";
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="nl" dir="ltr">
@@ -55,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </main>
 
     <footer>
-        <p>© 2023 Pizzeria Sole Machina - Snel, Vers & Gezellig</p>
+        <p>2023 Pizzeria Sole Machina - Snel, Vers & Gezellig</p>
     </footer>
 </body>
 </html>

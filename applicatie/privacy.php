@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'header.php';
 ?>
 <!DOCTYPE html>
 <html lang="nl" dir="ltr">
@@ -36,7 +37,7 @@ session_start();
     </main>
 
     <footer>
-        <p>© 2023 Pizzeria Sole Machina - Jouw Vertrouwen, Onze Prioriteit</p>
+        <p>2023 Pizzeria Sole Machina - Jouw Vertrouwen, Onze Prioriteit</p>
     </footer>
 </body>
 </html>

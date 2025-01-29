@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include 'header.php';
 if (!isset($_SESSION['winkelmandje'])) {
     $_SESSION['winkelmandje'] = [];
 }
