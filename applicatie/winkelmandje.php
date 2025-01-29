@@ -22,7 +22,7 @@
                 <div class="item">
                     <p>Pizza Margherita</p>
                     <input type="number" value="1" min="1" class="aantal" aria-label="Aantal">
-                    <p class="prijs">€9,99</p>
+                    <p class="prijs">€9,9</p>
                 </div>
             </div>
 
