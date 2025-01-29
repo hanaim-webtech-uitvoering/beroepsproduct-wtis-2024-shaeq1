@@ -1,6 +1,14 @@
 <?php
 session_start();
 
+// Uitlogfunctionaliteit
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['uitloggen'])) {
+    session_unset();
+    session_destroy();
+    header("Location: login.php");
+    exit();
+}
+
 if (!isset($_SESSION['ingelogd']) || $_SESSION['ingelogd'] !== true) {
     header("Location: login.php");
     exit();
@@ -21,12 +29,17 @@ if (!isset($_SESSION['ingelogd']) || $_SESSION['ingelogd'] !== true) {
             <ul>
                 <li><a href="index.php">Menu</a></li>
                 <li><a href="profiel.php" class="active">Profiel</a></li>
+                <li>
+                    <form method="post" class="uitlog-form">
+                        <button type="submit" name="uitloggen" class="uitlog-knop">Uitloggen</button>
+                    </form>
+                </li>
             </ul>
         </nav>
     </header>
 
     <main class="profiel-container">
-        <h1>👋 Hallo <?php echo $_SESSION['gebruikersnaam'] ?? 'Gast'; ?>!</h1>
+        <h1>👋 Hallo <?php echo htmlspecialchars($_SESSION['gebruikersnaam'] ?? 'Gast'); ?>!</h1>
         
         <section class="bestellingen-grid">
             <h2>Jouw Recente Bestellingen</h2>
@@ -40,7 +53,7 @@ if (!isset($_SESSION['ingelogd']) || $_SESSION['ingelogd'] !== true) {
     </main>
 
     <footer>
-        <p> 2023 Pizzeria Sole Machina - Alleen de Beste voor Jou</p>
+        <p>&copy; <?php echo date("Y"); ?> Pizzeria Sole Machina - Alleen de Beste voor Jou</p>
     </footer>
 </body>
 </html>
