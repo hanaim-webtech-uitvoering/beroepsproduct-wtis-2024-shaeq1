@@ -1,55 +1,56 @@
 <?php
 session_start();
 
-// Winkelmandje functionaliteit
 if (!isset($_SESSION['winkelmandje'])) {
     $_SESSION['winkelmandje'] = [];
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['toevoegen'])) {
-    $pizza = [
-        'naam' => $_POST['pizza_naam'],
-        'aantal' => 1
-    ];
-    array_push($_SESSION['winkelmandje'], $pizza);
 }
 ?>
 <!DOCTYPE html>
 <html lang="nl" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <title>Winkelmandje</title>
+    <title>Winkelmandje - Pizzeria Sole Machina</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <a class="skip-link" href="#main">Direct naar hoofdinhoud</a>
-    
-    <header role="banner">
-        <nav aria-label="Hoofdnavigatie">
+    <header>
+        <img src="images/logo.png" alt="Logo" class="logo">
+        <nav>
             <ul>
                 <li><a href="index.php">Menu</a></li>
-                <li><a href="winkelmandje.php" aria-current="page">Winkelmandje</a></li>
+                <li><a href="winkelmandje.php" class="active">Winkelmandje</a></li>
             </ul>
         </nav>
     </header>
 
-    <main id="main" role="main">
-        <h1>Jouw Winkelmandje</h1>
-        <section class="winkelmandje-items">
-            <?php
-            if (empty($_SESSION['winkelmandje'])) {
-                echo "<p>Je winkelmandje is leeg.</p>";
-            } else {
-                foreach ($_SESSION['winkelmandje'] as $item) {
-                    echo '
-                    <div class="item">
-                        <h3>' . $item['naam'] . '</h3>
-                        <p>Aantal: ' . $item['aantal'] . '</p>
-                    </div>';
-                }
-            }
-            ?>
-        </section>
+    <main class="winkelmandje-container">
+        <h1>🛒 Jouw Winkelmandje</h1>
+        
+        <?php if (empty($_SESSION['winkelmandje'])): ?>
+            <p class="leeg-mandje">Je mandje is nog leeg. Tijd voor pizza! 🍕</p>
+        <?php else: ?>
+            <div class="winkelmandje-items">
+                <?php foreach ($_SESSION['winkelmandje'] as $item): ?>
+                    <div class="mandje-item">
+                        <img src="images/<?php echo $item['afbeelding']; ?>" alt="<?php echo $item['naam']; ?>">
+                        <div class="item-info">
+                            <h3><?php echo $item['naam']; ?></h3>
+                            <p>Aantal: <?php echo $item['aantal']; ?></p>
+                            <p class="prijs">€<?php echo number_format($item['prijs'], 2); ?></p>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <div class="totaal-section">
+                <p class="totaal">Totaal: <span>€<?php echo number_format(array_sum(array_column($_SESSION['winkelmandje'], 'prijs')), 2); ?></span></p>
+                <button class="btn btn-rood">Afrekenen</button>
+            </div>
+        <?php endif; ?>
     </main>
+
+    <footer>
+        <p>© 2023 Pizzeria Sole Machina - Snel Bezorgd, Vers Gebakken</p>
+    </footer>
 </body>
 </html>
