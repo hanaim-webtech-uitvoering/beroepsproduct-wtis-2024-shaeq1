@@ -1,26 +1,16 @@
-/* CSS Variabelen (volgens styleguide) */
 :root {
-    --primary-color: #e63946;      /* Rood */
-    --secondary-color: #f1faee;    /* Lichtgroen */
-    --accent-color: #a8dadc;       /* Blauw */
-    --font-primary: 'Roboto', sans-serif;
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Reset en basisstijlen */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+    --primary-color: #e63946;
+    --secondary-color: #f1faee;
+    --accent-color: #a8dadc;
+    --font-primary: 'Arial', sans-serif;
 }
 
 body {
     font-family: var(--font-primary);
-    line-height: 1.6;
-    color: #333;
+    margin: 0;
+    background-color: var(--secondary-color);
 }
 
-/* Toegankelijkheid */
 .skip-link {
     position: absolute;
     left: -9999px;
@@ -29,10 +19,8 @@ body {
 .skip-link:focus {
     left: 1rem;
     top: 1rem;
-    z-index: 9999;
 }
 
-/* Responsive grid */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -40,25 +28,16 @@ body {
     padding: 2rem;
 }
 
-.card {
-    background: white;
-    border-radius: 8px;
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    transition: transform 0.3s ease;
+.btn-login {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-.card:hover {
-    transform: translateY(-5px);
-}
-
-/* Printstijlen */
-@media print {
-    nav, button {
-        display: none;
-    }
-    
-    .prijs::after {
-        content: " (incl. BTW)";
-    }
+.fout {
+    color: red;
+    font-weight: bold;
 }
