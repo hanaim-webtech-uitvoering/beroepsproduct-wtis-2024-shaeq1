@@ -34,7 +34,7 @@
     </main>
 
     <footer>
-        <p>© 2023 Pizzeria Sole Machina - Bel ons: <a href="tel:+31123456789">+31 123 456 789</a></p>
+        <p> 2023 Pizzeria Sole Machina - Bel ons: <a href="tel:+31123456789">+31 123 456 789</a></p>
     </footer>
 </body>
 </html>

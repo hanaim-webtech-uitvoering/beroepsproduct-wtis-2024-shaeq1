@@ -40,7 +40,7 @@ if (!isset($_SESSION['ingelogd']) || $_SESSION['ingelogd'] !== true) {
     </main>
 
     <footer>
-        <p>© 2023 Pizzeria Sole Machina - Alleen de Beste voor Jou</p>
+        <p> 2023 Pizzeria Sole Machina - Alleen de Beste voor Jou</p>
     </footer>
 </body>
 </html>
