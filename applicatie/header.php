@@ -21,7 +21,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             <?php if (isset($_SESSION['ingelogd'])): ?>
                 <li><a href="profiel.php" <?= $currentPage === 'profiel.php' ? 'class="active"' : '' ?>>Profiel</a></li>
                 <li>
-                    <form method="post">
+                    <form method="post" action="logout.php">
                         <button type="submit" name="uitloggen" class="uitlog-knop">Uitloggen</button>
                     </form>
                 </li>
