@@ -9,14 +9,15 @@ if (!isset($_SESSION['winkelmandje']) || empty($_SESSION['winkelmandje'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Bestelling opslaan met alle items
     $bestellingId = uniqid();
     $_SESSION['bestellingen'][] = [
         'id' => $bestellingId,
-        'items' => $_SESSION['winkelmandje'],
+        'items' => $_SESSION['winkelmandje'], // Sla alle items op
         'afleveradres' => $_SESSION['afleveradres'],
         'status' => 'In de Oven'
     ];
-    unset($_SESSION['winkelmandje']);
+    unset($_SESSION['winkelmandje']); // Leeg het winkelmandje
     header("Location: profiel.php");
     exit();
 }
