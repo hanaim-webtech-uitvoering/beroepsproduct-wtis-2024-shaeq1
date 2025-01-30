@@ -52,6 +52,9 @@ include 'header.php';
 
             <button type="submit" class="btn">Inloggen</button>
         </form>
+
+        <!-- Registratieknop -->
+        <p class="registratie-link">Nog geen account? <a href="registratie.php">Registreer hier</a></p>
     </main>
 
     <?php include 'footer.php'; ?>
