@@ -1,18 +1,8 @@
 <?php
-// Sessie starten vóór header.php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Uitloggen verwerken
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['uitloggen'])) {
-    session_unset();
-    session_destroy();
-    header("Location: login.php");
-    exit();
-}
-
-// Redirect als niet ingelogd
 if (!isset($_SESSION['ingelogd']) || $_SESSION['ingelogd'] !== true) {
     header("Location: login.php");
     exit();
@@ -22,18 +12,16 @@ include 'header.php';
 ?>
 
 <!DOCTYPE html>
-<html lang="nl" dir="ltr">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profiel - Pizzeria Sole Machina</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- VERWIJDER DE HANDMATIGE HEADER HIER -->
-
     <main class="profiel-container">
-        <h1>👋 Hallo <?php echo htmlspecialchars($_SESSION['gebruikersnaam'] ?? 'Gast'); ?>!</h1>
+        <h1>👋 Hallo <?= htmlspecialchars($_SESSION['gebruikersnaam'] ?? 'Gast'); ?>!</h1>
         
         <section class="bestellingen-grid">
             <h2>Jouw Recente Bestellingen</h2>
