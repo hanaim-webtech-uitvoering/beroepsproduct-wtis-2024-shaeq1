@@ -11,16 +11,6 @@ include 'header.php';
 </head>
 <body>
     <a class="skip-link" href="#main">Direct naar hoofdinhoud</a>
-    
-    <header>
-        <img src="images/logo.svg" alt="Logo van de pizzeria" width="200" height="80">
-        <nav>
-            <ul>
-                <li><a href="index.php">Menu</a></li>
-                <li><a href="registratie.php" aria-current="page">Registreren</a></li>
-            </ul>
-        </nav>
-    </header>
 
     <main id="main">
         <h1>Account aanmaken</h1>
@@ -60,9 +50,6 @@ include 'header.php';
         </form>
     </main>
 
-    <footer>
-        <p> <?php echo date("Y"); ?> Pizzeria Sole Machina</p>
-        <a href="privacy.php">Privacybeleid</a>
-    </footer>
+    <?php include 'footer.php'; ?>
 </body>
 </html>
