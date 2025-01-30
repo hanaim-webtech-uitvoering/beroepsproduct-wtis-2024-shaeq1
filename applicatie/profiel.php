@@ -25,12 +25,18 @@ include 'header.php';
         
         <section class="bestellingen-grid">
             <h2>Jouw Recente Bestellingen</h2>
-            <div class="bestelling-card">
-                <h3>Bestelling #001</h3>
-                <p class="status in-oven">In de Oven</p>
-                <p>2x Pizza Margherita</p>
-                <p class="totaal">Totaal: €19,98</p>
-            </div>
+            <?php if (isset($_SESSION['bestellingen'])): ?>
+                <?php foreach ($_SESSION['bestellingen'] as $bestelling): ?>
+                    <div class="bestelling-card">
+                        <h3>Bestelling #<?= $bestelling['id'] ?></h3>
+                        <p class="status <?= strtolower(str_replace(' ', '-', $bestelling['status'])) ?>"><?= $bestelling['status'] ?></p>
+                        <p><?= $bestelling['aantal'] ?>x <?= $bestelling['naam'] ?></p>
+                        <p class="totaal">Totaal: €<?= number_format($bestelling['prijs'] * $bestelling['aantal'], 2) ?></p>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Je hebt nog geen bestellingen geplaatst.</p>
+            <?php endif; ?>
         </section>
     </main>
 

@@ -8,15 +8,10 @@ if (!isset($_SESSION['winkelmandje']) || empty($_SESSION['winkelmandje'])) {
     exit();
 }
 
-// Verwijder een item uit het winkelmandje
-if (isset($_GET['verwijder'])) {
-    $itemIndex = $_GET['verwijder'];
-    if (isset($_SESSION['winkelmandje'][$itemIndex])) {
-        unset($_SESSION['winkelmandje'][$itemIndex]); 
-        $_SESSION['winkelmandje'] = array_values($_SESSION['winkelmandje']); // Herindexeer de array
-        header("Location: winkelmandje.php"); 
-        exit();
-    }
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['afleveradres'])) {
+    $_SESSION['afleveradres'] = $_POST['afleveradres'];
+    header("Location: bestelling-plaatsen.php");
+    exit();
 }
 
 $totaal = array_sum(array_column($_SESSION['winkelmandje'], 'prijs'));
@@ -39,9 +34,8 @@ include 'header.php';
         <div class="winkelmandje-items">
             <?php foreach ($_SESSION['winkelmandje'] as $index => $item): ?>
                 <div class="mandje-item">
-                    <h3><?= $item['naam'] ?></h3>
-                    <p>€<?= number_format($item['prijs'], 2) ?></p>
-                    <!-- Verwijderknop met een link naar de huidige pagina en een queryparameter -->
+                    <h3><?= $item['naam'] ?> (<?= $item['aantal'] ?>x)</h3>
+                    <p>€<?= number_format($item['prijs'] * $item['aantal'], 2) ?></p>
                     <a href="winkelmandje.php?verwijder=<?= $index ?>" class="btn btn-verwijderen">Verwijderen</a>
                 </div>
             <?php endforeach; ?>
@@ -49,7 +43,13 @@ include 'header.php';
 
         <div class="totaal-section">
             <p class="totaal">Totaal: <span>€<?= number_format($totaal, 2) ?></span></p>
-            <button class="btn btn-rood">Afrekenen</button>
+            <form method="post">
+                <div class="form-group">
+                    <label for="afleveradres">Afleveradres:</label>
+                    <input type="text" id="afleveradres" name="afleveradres" required>
+                </div>
+                <button type="submit" class="btn btn-rood">Afrekenen</button>
+            </form>
         </div>
     </main>
 

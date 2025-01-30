@@ -8,6 +8,17 @@ if (!isset($_SESSION['ingelogd']) || $_SESSION['role'] !== 'personeel') {
     exit();
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bestelling_id'])) {
+    $bestellingId = $_POST['bestelling_id'];
+    $nieuweStatus = $_POST['status'];
+    foreach ($_SESSION['bestellingen'] as &$bestelling) {
+        if ($bestelling['id'] == $bestellingId) {
+            $bestelling['status'] = $nieuweStatus;
+            break;
+        }
+    }
+}
+
 include 'header.php';
 ?>
 
@@ -20,38 +31,32 @@ include 'header.php';
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <main class="personeel-container">
-        <h1>📋 Actieve Bestellingen</h1>
+    <main class="bestellingen-container">
+        <h1>📦 Bestellingen Beheren</h1>
         
-        <table class="bestellingen-tabel">
-            <thead>
-                <tr>
-                    <th>Ordernummer</th>
-                    <th>Klant</th>
-                    <th>Producten</th>
-                    <th>Status</th>
-                    <th>Actie</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>#001</td>
-                    <td>Jan Jansen</td>
-                    <td>Pizza Margherita x2</td>
-                    <td class="status in-behandeling">In behandeling</td>
-                    <td>
+        <div class="bestellingen-grid">
+            <?php if (isset($_SESSION['bestellingen'])): ?>
+                <?php foreach ($_SESSION['bestellingen'] as $bestelling): ?>
+                    <div class="bestelling-card">
+                        <h3>Bestelling #<?= $bestelling['id'] ?></h3>
+                        <p class="status <?= strtolower(str_replace(' ', '-', $bestelling['status'])) ?>"><?= $bestelling['status'] ?></p>
+                        <p><?= $bestelling['aantal'] ?>x <?= $bestelling['naam'] ?></p>
+                        <p class="totaal">Totaal: €<?= number_format($bestelling['prijs'] * $bestelling['aantal'], 2) ?></p>
                         <form method="post">
+                            <input type="hidden" name="bestelling_id" value="<?= $bestelling['id'] ?>">
                             <select name="status">
-                                <option value="in_behandeling">In behandeling</option>
-                                <option value="in_de_oven">In de oven</option>
-                                <option value="onderweg">Onderweg</option>
+                                <option value="In de Oven">In de Oven</option>
+                                <option value="Onderweg">Onderweg</option>
+                                <option value="Bezorgd">Bezorgd</option>
                             </select>
-                            <button type="submit" class="btn-klein">Bijwerken</button>
+                            <button type="submit" class="btn">Status Bijwerken</button>
                         </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Er zijn geen actieve bestellingen.</p>
+            <?php endif; ?>
+        </div>
     </main>
 
     <?php include 'footer.php'; ?>
