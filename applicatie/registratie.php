@@ -10,7 +10,7 @@ include 'header.php';
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <a class="skip-link" href="#main">Direct naar hoofdinhoud</a>
+   
 
     <main id="main">
         <h1>Account aanmaken</h1>
