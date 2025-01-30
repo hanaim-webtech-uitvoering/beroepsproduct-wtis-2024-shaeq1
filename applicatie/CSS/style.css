@@ -1,15 +1,13 @@
-/* CSS Variabelen */
 :root {
-    --primary-red: #E63946;    /* Fel rood voor accenten */
-    --warm-yellow: #FFD166;    /* Zonnig geel voor knoppen */
-    --fresh-green: #06D6A0;    /* Frisgroen voor bevestigingen */
-    --neutral-white: #F8F9FA;  /* Witte achtergrond */
-    --dark-gray: #2B2D42;      /* Donkergrijs voor tekst */
+    --primary-red: #E63946;
+    --warm-yellow: #FFD166;
+    --fresh-green: #06D6A0;
+    --neutral-white: #F8F9FA;
+    --dark-gray: #2B2D42;
     --font-heading: 'Pacifico', cursive;
     --font-body: 'Nunito Sans', sans-serif;
 }
 
-/* Basisstijlen */
 body {
     font-family: var(--font-body);
     background-color: var(--neutral-white);
@@ -18,7 +16,6 @@ body {
     margin: 0;
 }
 
-/* Header */
 header {
     background-color: var(--primary-red);
     padding: 1rem;
@@ -31,7 +28,6 @@ header {
     margin: 0 auto;
 }
 
-/* Navigatie */
 nav ul {
     list-style: none;
     display: flex;
@@ -51,9 +47,8 @@ nav a:hover {
     opacity: 0.8;
 }
 
-/* Winkelmandje rechtsboven */
 .winkelmandje-item {
-    margin-left: auto; /* Plaatst het winkelmandje rechts */
+    margin-left: auto;
     position: relative;
 }
 
@@ -73,7 +68,6 @@ nav a:hover {
     font-size: 12px;
 }
 
-/* Productgrid */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -102,7 +96,6 @@ nav a:hover {
     object-fit: cover;
 }
 
-/* Knoppen */
 .btn-toevoegen {
     background-color: var(--warm-yellow);
     color: var(--dark-gray);
@@ -119,7 +112,6 @@ nav a:hover {
     background-color: #FFC107;
 }
 
-/* Footer */
 footer {
     background-color: var(--dark-gray);
     color: var(--neutral-white);
@@ -128,7 +120,6 @@ footer {
     margin-top: 3rem;
 }
 
-/* Titelstijlen */
 h1, h2 {
     font-family: var(--font-heading);
     text-align: center;
@@ -140,7 +131,6 @@ h1 {
     font-size: 2.5rem;
 }
 
-/* Algemene formulierstijlen */
 .form-container {
     max-width: 500px;
     margin: 2rem auto;
@@ -173,7 +163,6 @@ h1 {
     outline: none;
 }
 
-/* Winkelmandje */
 .winkelmandje-container {
     max-width: 800px;
     margin: 2rem auto;
@@ -210,7 +199,6 @@ h1 {
     color: var(--primary-red);
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .mandje-item {
         flex-direction: column;
@@ -223,6 +211,70 @@ h1 {
     }
 
     .winkelmandje-item {
-        margin-left: 0; /* Winkelmandje centreren op mobiel */
+        margin-left: 0;
+    }
+}
+
+.btn-verwijderen {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.btn-verwijderen:hover {
+    background-color: #cc0000;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.product {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Transitions */
+nav a, .btn-toevoegen, .btn-verwijderen {
+    transition: all 0.3s ease;
+}
+
+/* Flexbox for responsive design */
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Grid for complex layouts */
+.complex-layout {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+/* Advanced CSS techniques */
+.advanced-techniques {
+    clip-path: polygon(0 0, 100% 0, 100% 75%, 75% 100%, 0 100%);
+    background: linear-gradient(135deg, var(--primary-red), var(--warm-yellow));
+    color: white;
+    padding: 2rem;
+    margin: 2rem 0;
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
     }
 }

@@ -8,6 +8,17 @@ if (!isset($_SESSION['winkelmandje']) || empty($_SESSION['winkelmandje'])) {
     exit();
 }
 
+// Verwijder een item uit het winkelmandje
+if (isset($_GET['verwijder'])) {
+    $itemIndex = $_GET['verwijder'];
+    if (isset($_SESSION['winkelmandje'][$itemIndex])) {
+        unset($_SESSION['winkelmandje'][$itemIndex]); 
+        $_SESSION['winkelmandje'] = array_values($_SESSION['winkelmandje']); // Herindexeer de array
+        header("Location: winkelmandje.php"); 
+        exit();
+    }
+}
+
 $totaal = array_sum(array_column($_SESSION['winkelmandje'], 'prijs'));
 
 include 'header.php';
@@ -26,10 +37,12 @@ include 'header.php';
         <h1>🛒 Jouw Winkelmandje</h1>
         
         <div class="winkelmandje-items">
-            <?php foreach ($_SESSION['winkelmandje'] as $item): ?>
+            <?php foreach ($_SESSION['winkelmandje'] as $index => $item): ?>
                 <div class="mandje-item">
                     <h3><?= $item['naam'] ?></h3>
                     <p>€<?= number_format($item['prijs'], 2) ?></p>
+                    <!-- Verwijderknop met een link naar de huidige pagina en een queryparameter -->
+                    <a href="winkelmandje.php?verwijder=<?= $index ?>" class="btn btn-verwijderen">Verwijderen</a>
                 </div>
             <?php endforeach; ?>
         </div>
