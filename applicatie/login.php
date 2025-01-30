@@ -1,8 +1,11 @@
 <?php
-session_start();
+// Sessie starten vóór header.php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
+// Inloglogica
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Voorbeeld inloglogica (vervang met database check)
     if ($_POST['gebruikersnaam'] === 'personeel' && $_POST['wachtwoord'] === 'geheim') {
         $_SESSION['ingelogd'] = true;
         $_SESSION['role'] = 'personeel';
@@ -21,26 +24,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 include 'header.php';
 ?>
 
-<main class="form-container">
-    <h1>🔑 Inloggen</h1>
-    
-    <?php if (isset($foutmelding)): ?>
-        <p class="foutmelding"><?= $foutmelding ?></p>
-    <?php endif; ?>
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Inloggen - Pizzeria Sole Machina</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- VERWIJDER DE HANDMATIGE HEADER HIER -->
 
-    <form method="post">
-        <div class="form-group">
-            <label for="gebruikersnaam">Gebruikersnaam:</label>
-            <input type="text" id="gebruikersnaam" name="gebruikersnaam" required>
-        </div>
+    <main class="form-container">
+        <h1>🔑 Inloggen</h1>
+        
+        <?php if (isset($foutmelding)): ?>
+            <p class="foutmelding"><?= $foutmelding ?></p>
+        <?php endif; ?>
 
-        <div class="form-group">
-            <label for="wachtwoord">Wachtwoord:</label>
-            <input type="password" id="wachtwoord" name="wachtwoord" required>
-        </div>
+        <form method="post">
+            <div class="form-group">
+                <label for="gebruikersnaam">Gebruikersnaam:</label>
+                <input type="text" id="gebruikersnaam" name="gebruikersnaam" required>
+            </div>
 
-        <button type="submit" class="btn">Inloggen</button>
-    </form>
-</main>
+            <div class="form-group">
+                <label for="wachtwoord">Wachtwoord:</label>
+                <input type="password" id="wachtwoord" name="wachtwoord" required>
+            </div>
 
-<?php include 'footer.php'; ?>
+            <button type="submit" class="btn">Inloggen</button>
+        </form>
+    </main>
+
+    <?php include 'footer.php'; ?>
+</body>
+</html>
