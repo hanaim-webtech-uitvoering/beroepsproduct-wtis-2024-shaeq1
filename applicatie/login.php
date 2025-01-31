@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Voorbeeld inloglogica (vervang met database check)
+    // Voorbeeld inloglogica
     if ($_POST['gebruikersnaam'] === 'personeel' && $_POST['wachtwoord'] === 'geheim') {
         $_SESSION['ingelogd'] = true;
         $_SESSION['role'] = 'personeel';
@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     } elseif ($_POST['gebruikersnaam'] === 'klant' && $_POST['wachtwoord'] === 'wachtwoord') {
         $_SESSION['ingelogd'] = true;
-        $_SESSION['role'] = 'klant';
+        $_SESSION['role'] = 'klant';    
         header("Location: index.php");
         exit();
     } else {
