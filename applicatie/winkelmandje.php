@@ -8,13 +8,11 @@ if (!isset($_SESSION['winkelmandje']) || empty($_SESSION['winkelmandje'])) {
     exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['afleveradres'])) {
-    $_SESSION['afleveradres'] = $_POST['afleveradres'];
-    header("Location: bestelling-plaatsen.php");
-    exit();
+// Bereken totaalprijs CORRECT (prijs * aantal per item)
+$totaal = 0;
+foreach ($_SESSION['winkelmandje'] as $item) {
+    $totaal += $item['prijs'] * $item['aantal']; // Prijs * aantal
 }
-
-$totaal = array_sum(array_column($_SESSION['winkelmandje'], 'prijs'));
 
 include 'header.php';
 ?>
@@ -35,14 +33,14 @@ include 'header.php';
             <?php foreach ($_SESSION['winkelmandje'] as $index => $item): ?>
                 <div class="mandje-item">
                     <h3><?= $item['naam'] ?> (<?= $item['aantal'] ?>x)</h3>
-                    <p>€<?= number_format($item['prijs'] * $item['aantal'], 2) ?></p>
+                    <p>€<?= number_format($item['prijs'] * $item['aantal'], 2) ?></p> <!-- Prijs * aantal -->
                     <a href="winkelmandje.php?verwijder=<?= $index ?>" class="btn btn-verwijderen">Verwijderen</a>
                 </div>
             <?php endforeach; ?>
         </div>
 
         <div class="totaal-section">
-            <p class="totaal">Totaal: <span>€<?= number_format($totaal, 2) ?></span></p>
+            <p class="totaal">Totaal: <span>€<?= number_format($totaal, 2) ?></span></p> <!-- Correcte totaalprijs -->
             <form method="post">
                 <div class="form-group">
                     <label for="afleveradres">Afleveradres:</label>

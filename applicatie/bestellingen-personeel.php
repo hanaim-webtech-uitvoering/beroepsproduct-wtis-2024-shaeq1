@@ -19,6 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bestelling_id'])) {
     }
 }
 
+// Zorg ervoor dat de bestellingen-array bestaat
+if (!isset($_SESSION['bestellingen'])) {
+    $_SESSION['bestellingen'] = [];
+}
+
 include 'header.php';
 ?>
 
@@ -35,13 +40,30 @@ include 'header.php';
         <h1>📦 Bestellingen Beheren</h1>
         
         <div class="bestellingen-grid">
-            <?php if (isset($_SESSION['bestellingen'])): ?>
+            <?php if (!empty($_SESSION['bestellingen'])): ?>
                 <?php foreach ($_SESSION['bestellingen'] as $bestelling): ?>
                     <div class="bestelling-card">
                         <h3>Bestelling #<?= $bestelling['id'] ?></h3>
-                        <p class="status <?= strtolower(str_replace(' ', '-', $bestelling['status'])) ?>"><?= $bestelling['status'] ?></p>
-                        <p><?= $bestelling['aantal'] ?>x <?= $bestelling['naam'] ?></p>
-                        <p class="totaal">Totaal: €<?= number_format($bestelling['prijs'] * $bestelling['aantal'], 2) ?></p>
+                        <p class="status <?= strtolower(str_replace(' ', '-', $bestelling['status'])) ?>">
+                            <?= $bestelling['status'] ?>
+                        </p>
+                        <p>Afleveradres: <?= htmlspecialchars($bestelling['afleveradres']) ?></p>
+                        
+                        <!-- Toon alle items in de bestelling -->
+                        <?php foreach ($bestelling['items'] as $item): ?>
+                            <p><?= $item['aantal'] ?>x <?= $item['naam'] ?> (€<?= number_format($item['prijs'], 2) ?>/stuk)</p>
+                        <?php endforeach; ?>
+
+                        <!-- Bereken het totaalbedrag -->
+                        <?php 
+                            $totaal = 0;
+                            foreach ($bestelling['items'] as $item) {
+                                $totaal += $item['prijs'] * $item['aantal'];
+                            }
+                        ?>
+                        <p class="totaal">Totaal: €<?= number_format($totaal, 2) ?></p>
+
+                        <!-- Formulier om de status te wijzigen -->
                         <form method="post">
                             <input type="hidden" name="bestelling_id" value="<?= $bestelling['id'] ?>">
                             <select name="status">
