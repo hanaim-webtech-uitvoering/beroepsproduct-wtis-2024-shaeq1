@@ -8,9 +8,27 @@ if (!isset($_SESSION['ingelogd']) || $_SESSION['ingelogd'] !== true) {
     exit();
 }
 
-// Zorg ervoor dat de bestellingen-array bestaat
-if (!isset($_SESSION['bestellingen'])) {
-    $_SESSION['bestellingen'] = [];
+// Voorbeelddata voor bestellingen
+if (!isset($_SESSION['bestellingen']) || empty($_SESSION['bestellingen'])) {
+    $_SESSION['bestellingen'] = [
+        [
+            'id' => 1,
+            'items' => [
+                ['naam' => 'Margherita', 'prijs' => 9.99, 'aantal' => 2],
+                ['naam' => 'Pepperoni', 'prijs' => 11.99, 'aantal' => 1]
+            ],
+            'afleveradres' => 'Voorbeeldstraat 123, 1234 AB Amsterdam',
+            'status' => 'In de Oven'
+        ],
+        [
+            'id' => 2,
+            'items' => [
+                ['naam' => 'Hawaii', 'prijs' => 12.99, 'aantal' => 3]
+            ],
+            'afleveradres' => 'Teststraat 456, 5678 CD Rotterdam',
+            'status' => 'Onderweg'
+        ]
+    ];
 }
 
 include 'header.php';
